@@ -1,0 +1,67 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "exfor_grammar_parser"
+dynamic = ["version"]
+description = 'Collection of grammar snippets for exfor parsing'
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+keywords = []
+authors = [
+  { name = "Julia Sprenger", email = "julia.sprenger@oecd-nea.org" },
+  { name = "Georg Schnabel", email = "g.schnabel@iaea.org" },
+  { name = "Thomas Stainer", email = "stainer.tom+gh@gmail.com" },
+  { name = "Shin Okumura", email = "s.okumura@iaea.org" },
+  { name = "Shane Hart", email = "shane.hart@oecd-nea.org" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+
+]
+dependencies = ["lark"]
+
+[project.urls]
+Documentation = "https://github.com/CodeVisionaries/exfor_grammar_parser/#readme"
+Issues = "https://github.com/CodeVisionaries/exfor_grammar_parser/issues"
+Source = "https://github.com/CodeVisionaries/exfor_grammar_parser"
+
+[tool.hatch.version]
+path = "src/exfor_grammar_parser/__about__.py"
+
+[tool.hatch.envs.test]
+dependencies = ["pytest", "lark"]
+
+[tool.hatch.envs.test.scripts]
+test = "pytest {args:tests}"
+
+[tool.hatch.envs.types]
+extra-dependencies = ["mypy>=1.0.0"]
+[tool.hatch.envs.types.scripts]
+check = "mypy --install-types --non-interactive {args:src/exfor_grammar_parser tests}"
+
+[tool.coverage.run]
+source_pkgs = ["exfor_grammar_parser", "tests"]
+branch = true
+parallel = true
+omit = ["src/exfor_grammar_parser/__about__.py"]
+
+[tool.coverage.paths]
+exfor_grammar_parser = ["src/exfor_grammar_parser"]
+tests = ["tests"]
+
+[tool.coverage.report]
+exclude_lines = ["no cov", "if __name__ == .__main__.:", "if TYPE_CHECKING:"]
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q"
+testpaths = ["tests"]
